@@ -49,7 +49,7 @@ def parse_fastq(filename, num_of_records):
             seq = line.strip()
         elif line_type == 3:
             quals = line.strip()
-
+            
             yield name, seq, quals
       
         line_num +=1
@@ -60,6 +60,7 @@ def parse_fastq(filename, num_of_records):
 def sum_quals(qual): 
     val = sum([ord(i) for i in qual])
     return val
+
 
 #reverse_complement will take a seq on imput and otput the reverse
 #complement sequence
@@ -91,7 +92,7 @@ print 'answer-3:', Cname
 #numbers. Report the largest quality score
 
 Qscore = 0
-for name, seq, quals in parse_fastq(filename, 10):
+for name, seq, quals in parse_fastq(filename, 'inf'):
     if Qscore < sum_quals(quals):
         Qscore = sum_quals(quals)
 
@@ -99,7 +100,8 @@ print 'answer-4:', Qscore
 
 #Report the reverse complement for each of the first 10 records 
 
+rev_comp = []
 for name, seq, quals in parse_fastq(filename, 10):
-    print 'answer-5:', reverse_complement(seq)
+    rev_comp.append(reverse_complement(seq))
 
-
+print 'answer-5:', rev_comp
